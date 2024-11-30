@@ -1,0 +1,14 @@
+#include <math.h>
+
+bool isPerfectSquare(int num) {
+    double root;
+    root = pow(num, 0.5);
+
+    if (root == (int)root) {
+        return true;
+    } else {
+        return false;
+    }
+    
+
+}
