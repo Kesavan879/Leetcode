@@ -1,0 +1,14 @@
+int countSegments(char* s) {
+    if (*s==0) {
+        return 0;
+    }
+    int count=0;
+    s++;
+    while(*s) {
+        if ( *(s-1) != 32 && *s == 32 ) {
+            count++;
+        }
+        s++;
+    }
+    return (*(s-1)==32) ? count  :count+1;
+}
