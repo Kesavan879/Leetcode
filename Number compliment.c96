@@ -1,0 +1,7 @@
+int findComplement(int num) {
+    int bits = (int)(log2(num)) + 1;
+    unsigned int mask = (1U << bits) - 1; 
+    //printf("bits %d\n",bits);
+    //printf("res %x mask %x\n",res,mask);
+    return ~num&mask;
+}
