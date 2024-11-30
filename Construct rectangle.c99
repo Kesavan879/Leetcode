@@ -1,0 +1,33 @@
+/**
+ * Note: The returned array must be malloced, assume caller calls free().
+ */
+int* constructRectangle(int area, int* returnSize) {
+    int *ans;
+    *returnSize = 2;
+    ans = (int *)malloc(sizeof(int) * (*returnSize));  
+    int mindiff = 10000000 , diff , num1 , num2;
+    for(int i = 1; i <= area; i++)
+    {
+        if(area % i == 0)
+        {
+            num1 = i;
+            num2 = area/i;
+            diff = abs(num1 - num2);
+            if(diff < mindiff)
+            {
+                mindiff = diff;
+                if(num1 < num2)
+                {
+                    ans[0] = num2;
+                    ans[1] = num1;
+                } 
+                else
+                {
+                    ans[0] = num1;
+                    ans[1] = num2;
+                }   
+            }
+        }
+    }  
+    return ans;
+}
