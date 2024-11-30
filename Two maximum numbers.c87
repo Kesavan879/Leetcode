@@ -1,0 +1,27 @@
+int thirdMax(int* nums, int numsSize) 
+{
+    long long first=LONG_MIN,secound=LONG_MIN,third=LONG_MIN;
+    for(int i=0;i<numsSize;i++)
+
+    {
+        if(nums[i]==first || nums[i]==secound || nums[i]==third)
+        {
+            continue;
+        }
+        if(nums[i]>first)
+        {
+            third=secound;
+            secound=first;
+            first=nums[i];
+        }
+        else if(nums[i]>secound)
+        {
+            third=secound;
+            secound=nums[i];
+        }
+        else  if(nums[i]>third ){
+            third=nums[i];
+        }
+    }
+    return (third == LONG_MIN) ? first : third;
+}
