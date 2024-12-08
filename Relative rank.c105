@@ -1,0 +1,52 @@
+// Corrected comparison function
+int cmp(const void *a, const void *b) {
+    return (*(int*)b - *(int*)a); // For descending order
+}
+
+char** findRelativeRanks(int* score, int scoreSize, int* returnSize) {
+    // Allocate memory for the new_score array
+    int* new_score = (int*)malloc(scoreSize * sizeof(int));
+    
+    // Copy the scores into new_score
+    for(int i = 0; i < scoreSize; i++) {
+        new_score[i] = score[i];
+    }
+
+    // Sort new_score in descending order
+    qsort(new_score, scoreSize, sizeof(int), cmp);
+    
+    // Allocate memory for the ranks array
+    char** ranks = (char**)malloc(scoreSize * sizeof(char*));
+    
+    // Assign ranks based on sorted scores
+    for(int i = 0; i < scoreSize; i++) {
+        // Find the index of the original score in the sorted array
+        int rank = 0;
+        for(int j = 0; j < scoreSize; j++) {
+            if(score[i] == new_score[j]) {
+                rank = j;
+                break;
+            }
+        }
+        // Allocate memory for the rank string and set the rank
+        ranks[i] = (char*)malloc(16 * sizeof(char)); // 16 is arbitrary, ensure it's large enough
+        if(rank == 0) {
+            strcpy(ranks[i], "Gold Medal");
+        } else if(rank == 1) {
+            strcpy(ranks[i], "Silver Medal");
+        } else if(rank == 2) {
+            strcpy(ranks[i], "Bronze Medal");
+        } else {
+            sprintf(ranks[i], "%d", rank + 1); // Convert rank to string
+        }
+    }
+    
+    // Set the return size
+    *returnSize = scoreSize;
+    
+    // Free the new_score array
+    free(new_score);
+    
+    // Return the ranks array
+    return ranks;
+}
