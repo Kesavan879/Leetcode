@@ -1,0 +1,15 @@
+int* nextGreaterElement(int* nums1, int nums1Size, int* nums2, int nums2Size, int* returnSize) {
+    int nge[10001], stack[nums2Size];
+    int top = -1;
+    
+    for (int i = nums2Size - 1; i >= 0; i--) {
+        while (top >= 0 && nums2[i] >= stack[top]) top--;
+        nge[nums2[i]] = top >= 0 ? stack[top] : -1;
+        stack[++top] = nums2[i];
+    }
+    
+    for (int i = 0; i < nums1Size; i++) nums1[i] = nge[nums1[i]];
+    
+    *returnSize = nums1Size;
+    return nums1;
+}
