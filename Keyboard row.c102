@@ -1,0 +1,55 @@
+/**
+ * Note: The returned array must be malloced, assume caller calls free().
+ */
+ bool isBelong(char c , char *ptr)
+ {
+    int i = 0;
+    while(ptr[i] != '\0')
+    {
+        if( c == ptr[i] )
+        {
+            return 1;
+        }
+        i++;
+    }
+    return 0;
+ }
+ bool canBeTypedWithOneRow(const char *word, const char *row)
+ {
+    int i = 0; 
+    while(word[i] != '\0')
+    {
+        // if(!isBelong(word[i] , &row))
+        // {
+        //     return 0;
+        // }
+         if (!isBelong(tolower(word[i]), row)) { // Use tolower to ensure case-insensitivity
+            return 0;
+        
+        }
+        i++;
+    }
+    return 1;
+ }
+char** findWords(char** words, int wordsSize, int* returnSize) {
+      char row1[20] = "qwertyuiop";
+      char row2[20] = "asdfghjkl";
+      char row3[20] = "zxcvbnm";
+      *returnSize = 0;
+      int **s = (char **)malloc(wordsSize  * sizeof(char *));
+      
+    for(int i = 0 ; i < wordsSize ; i++)
+    {
+        if(canBeTypedWithOneRow(words[i] , row1) || canBeTypedWithOneRow(words[i] , row2)
+         || canBeTypedWithOneRow(words[i] , row3))
+         {
+            s[*returnSize] = (char *)malloc((strlen(words[i]) + 1) * sizeof(char));
+            strcpy(s[*returnSize], words[i]);
+            (*returnSize)++;
+         }
+
+    }
+    s = (char **)realloc(s, (*returnSize) * sizeof(char *));
+    
+    return s;
+}
